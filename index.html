@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>King Sukh Guest House - Your Perfect Stay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0QxpcGlYk/vKx0/f+s4eC7tG2b0r4/B5R5t1z0y5e5F5w5F5w5F5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        scroll-behavior: smooth;
+      }
+      /* Custom scrollbar for better aesthetics */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      /* Smooth scroll for anchor links */
+      html {
+        scroll-behavior: smooth;
+      }
+      .hero-background {
+        /* Using a placeholder. Replace with a high-quality image of the guest house exterior or a scenic view. */
+        background-image: url("assets/header.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Parallax effect */
+      }
+      /* Simple hamburger icon for mobile */
+      .hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+      .hamburger-icon span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #fff;
+        border-radius: 2px;
+        transition: all 0.3s ease-in-out;
+      }
+      .hamburger-icon.open span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+      .hamburger-icon.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger-icon.open span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+      /* Loading spinner for AI itinerary */
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #f59e0b; /* Amber color */
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Custom Slider Styles */
+      .slider-container {
+        position: relative;
+        max-width: 100%;
+        margin: auto;
+        overflow: hidden;
+        border-radius: 0.75rem; /* rounded-lg */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+      }
+      .slider-images {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+      .slider-images img {
+        width: 100%;
+        flex-shrink: 0;
+        object-fit: cover;
+        height: 400px; /* Fixed height for consistency */
+      }
+      .slider-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 1rem;
+        cursor: pointer;
+        z-index: 10;
+        border-radius: 9999px; /* rounded-full */
+        transition: background-color 0.3s ease;
+      }
+      .slider-button:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      .slider-button.prev {
+        left: 1rem;
+      }
+      .slider-button.next {
+        right: 1rem;
+      }
+      .slider-pagination {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+        z-index: 10;
+      }
+      .pagination-dot {
+        width: 10px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+      .pagination-dot.active {
+        background-color: #f59e0b; /* Amber color */
+        transform: scale(1.2);
+      }
+      .p-6 {
+        padding: 9.5rem;
+        padding-top: 19rem;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <header class="bg-gray-900 text-white p-4 shadow-lg fixed w-full z-50">
+      <nav class="container mx-auto flex justify-between items-center">
+        <a
+          href="#home"
+          class="text-2xl font-bold tracking-wide rounded-lg p-2 hover:bg-gray-800 transition duration-300"
+          >King Sukh Guest House</a
+        >
+
+        <ul class="hidden md:flex space-x-6">
+          <li>
+            <a
+              href="#home"
+              class="hover:text-amber-400 transition duration-300 p-2 rounded-md"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#rooms"
+              class="hover:text-amber-400 transition duration-300 p-2 rounded-md"
+              >Rooms</a
+            >
+          </li>
+          <li>
+            <a
+              href="#amenities"
+              class="hover:text-amber-400 transition duration-300 p-2 rounded-md"
+              >Amenities</a
+            >
+          </li>
+          <li>
+            <a
+              href="#itinerary-generator"
+              class="hover:text-amber-400 transition duration-300 p-2 rounded-md"
+              >Plan Your Trip</a
+            >
+          </li>
+          <li>
+            <a
+              href="#gallery"
+              class="hover:text-amber-400 transition duration-300 p-2 rounded-md"
+              >Gallery</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="hover:text-amber-400 transition duration-300 p-2 rounded-md"
+              >Contact</a
+            >
+          </li>
+        </ul>
+
+        <div class="md:hidden">
+          <button
+            id="mobile-menu-button"
+            class="hamburger-icon focus:outline-none"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-gray-800 mt-4 rounded-lg shadow-inner"
+      >
+        <ul class="flex flex-col space-y-2 p-4">
+          <li>
+            <a
+              href="#home"
+              class="block py-2 px-4 text-white hover:bg-gray-700 rounded-md transition duration-300"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#rooms"
+              class="block py-2 px-4 text-white hover:bg-gray-700 rounded-md transition duration-300"
+              >Rooms</a
+            >
+          </li>
+          <li>
+            <a
+              href="#amenities"
+              class="block py-2 px-4 text-white hover:bg-gray-700 rounded-md transition duration-300"
+              >Amenities</a
+            >
+          </li>
+          <li>
+            <a
+              href="#itinerary-generator"
+              class="block py-2 px-4 text-white hover:bg-gray-700 rounded-md transition duration-300"
+              >Plan Your Trip</a
+            >
+          </li>
+          <li>
+            <a
+              href="#gallery"
+              class="block py-2 px-4 text-white hover:bg-gray-700 rounded-md transition duration-300"
+              >Gallery</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="block py-2 px-4 text-white hover:bg-gray-700 rounded-md transition duration-300"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <section
+      id="home"
+      class="hero-background h-screen flex items-center justify-center text-center text-white relative"
+    >
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+      <div
+        class="z-10 p-6 max-w-3xl mx-auto rounded-xl bg-black bg-opacity-40 backdrop-blur-sm shadow-2xl"
+      >
+        <h1
+          class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          Experience Comfort at King Sukh Guest House
+        </h1>
+        <p
+          class="text-lg md:text-xl mb-8 font-light"
+          data-aos="fade-up"
+          data-aos-delay="300"
+          data-aos-duration="1000"
+        >
+          Your tranquil escape in the heart of the city. Perfect for leisure and
+          business.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row justify-center gap-4"
+          data-aos="fade-up"
+          data-aos-delay="600"
+          data-aos-duration="1000"
+        >
+          <a
+            href="#itinerary-generator"
+            class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
+          >
+            Plan Your Stay ✨
+          </a>
+          <a
+            href="#contact"
+            class="bg-white text-amber-700 hover:bg-gray-200 font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
+          >
+            Book Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-16 bg-white">
+      <div class="container mx-auto px-4 md:px-8">
+        <h2
+          class="text-4xl font-bold text-center mb-12 text-gray-900"
+          data-aos="fade-up"
+        >
+          Welcome to King Sukh
+        </h2>
+        <div class="flex flex-col md:flex-row items-center gap-12">
+          <div class="md:w-1/2" data-aos="fade-right" data-aos-duration="1000">
+            <img
+              src="assets/service.jpg"
+              alt="King Sukh Guest House Reception"
+              class="rounded-xl shadow-xl w-full h-auto object-cover"
+            />
+          </div>
+          <div
+            class="md:w-1/2 text-lg leading-relaxed text-gray-700"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            <p class="mb-4">
+              Nestled in a serene locale, King Sukh Guest House offers a perfect
+              blend of comfort, elegance, and warm hospitality. Whether you're
+              traveling for business or leisure, our guest house provides a
+              peaceful retreat with all the modern amenities you need for a
+              memorable stay.
+            </p>
+            <p class="mb-4">
+              Our dedicated staff is committed to ensuring your utmost
+              satisfaction, from the moment you arrive until your departure.
+              Enjoy well-appointed rooms, delicious dining options, and easy
+              access to local attractions.
+            </p>
+            <p>
+              We look forward to welcoming you to King Sukh Guest House, where
+              every guest is treated like royalty.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rooms" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4 md:px-8">
+        <h2
+          class="text-4xl font-bold text-center mb-12 text-gray-900"
+          data-aos="fade-up"
+        >
+          Our Comfortable Rooms
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div
+            class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300"
+            data-aos="zoom-in-up"
+            data-aos-delay="100"
+          >
+            <img
+              src="/assets/large.jpg"
+              alt="Standard Room"
+              class="w-full h-56 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-2xl font-semibold mb-2 text-gray-900">
+                Standard Room
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Cozy and well-equipped for a comfortable solo or couple's stay.
+              </p>
+              <ul class="text-gray-700 text-sm mb-4 list-disc list-inside">
+                <li>Queen Bed</li>
+                <li>En-suite Bathroom</li>
+                <li>Air Conditioning</li>
+                <li>Free Wi-Fi</li>
+              </ul>
+              <a
+                href="#"
+                class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-5 rounded-full text-sm"
+                >View Details</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300"
+            data-aos="zoom-in-up"
+            data-aos-delay="200"
+          >
+            <img
+              src="/assets/room1.jpg"
+              alt="Deluxe Room"
+              class="w-full h-56 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-2xl font-semibold mb-2 text-gray-900">
+                Deluxe Room
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Spacious and elegant, perfect for a relaxing experience.
+              </p>
+              <ul class="text-gray-700 text-sm mb-4 list-disc list-inside">
+                <li>King Bed</li>
+                <li>Private Balcony</li>
+                <li>Mini-Bar</li>
+                <li>Work Desk</li>
+              </ul>
+              <a
+                href="#"
+                class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-5 rounded-full text-sm"
+                >View Details</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300"
+            data-aos="zoom-in-up"
+            data-aos-delay="300"
+          >
+            <img
+              src="./assets/small.jpg"
+              alt="Family Suite"
+              class="w-full h-56 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-2xl font-semibold mb-2 text-gray-900">
+                Family Suite
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Ideal for families, offering ample space and comfort.
+              </p>
+              <ul class="text-gray-700 text-sm mb-4 list-disc list-inside">
+                <li>Two Bedrooms</li>
+                <li>Living Area</li>
+                <li>Kitchenette</li>
+                <li>Complimentary Breakfast</li>
+              </ul>
+              <a
+                href="#"
+                class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-5 rounded-full text-sm"
+                >View Details</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="amenities" class="py-16 bg-white">
+      <div class="container mx-auto px-4 md:px-8">
+        <h2
+          class="text-4xl font-bold text-center mb-12 text-gray-900"
+          data-aos="fade-up"
+        >
+          Our Guest House Amenities
+        </h2>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center"
+        >
+          <div
+            class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center transform hover:scale-105 transition duration-300"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <svg
+              class="w-12 h-12 text-amber-500 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">
+              24/7 Front Desk
+            </h3>
+            <p class="text-gray-600 text-sm">Always available to assist you.</p>
+          </div>
+          <div
+            class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center transform hover:scale-105 transition duration-300"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <svg
+              class="w-12 h-12 text-amber-500 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.938-9h13.856c1.54 0 2.502 1.667 1.732 3L13.732 21c-.77 1.333-2.694 1.333-3.464 0L3.306 12c-.77-1.333.192-3 1.732-3z"
+              ></path>
+            </svg>
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">Free Wi-Fi</h3>
+            <p class="text-gray-600 text-sm">
+              Stay connected throughout your stay.
+            </p>
+          </div>
+          <div
+            class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center transform hover:scale-105 transition duration-300"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <svg
+              class="w-12 h-12 text-amber-500 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 6l3 1m0 0l-3 9a5 5 0 0010 0l-3-9m-3 0V3m0 3h.01M6 19l3-3m-3 3l-3-3m3 3v3m0-3h.01M19 6l3 1m0 0l-3 9a5 5 0 0010 0l-3-9m-3 0V3m0 3h.01M19 19l3-3m-3 3l-3-3m3 3v3m0-3h.01"
+              ></path>
+            </svg>
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">
+              Complimentary Breakfast
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Start your day with a delicious meal.
+            </p>
+          </div>
+          <div
+            class="bg-gray-50 p-6 rounded-xl shadow-md flex flex-col items-center transform hover:scale-105 transition duration-300"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <svg
+              class="w-12 h-12 text-amber-500 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2l2 2 2-2h2a2 2 0 002-2v-2m-6-4h4m-4 0h.01"
+              ></path>
+            </svg>
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">
+              Parking Available
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Secure parking for your vehicle.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="itinerary-generator" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4 md:px-8">
+        <h2
+          class="text-4xl font-bold text-center mb-12 text-gray-900"
+          data-aos="fade-up"
+        >
+          Plan Your Perfect Trip ✨
+        </h2>
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg max-w-2xl mx-auto"
+          data-aos="zoom-in"
+        >
+          <p class="text-center text-gray-700 mb-6">
+            Tell us your interests and how long you're staying, and we'll
+            suggest a personalized itinerary!
+          </p>
+          <div class="space-y-4">
+            <div>
+              <label
+                for="interests"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Your Interests (e.g., adventure, culture, relaxation,
+                food):</label
+              >
+              <input
+                type="text"
+                id="interests"
+                class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500"
+                placeholder="e.g., sightseeing, local food, nature walks"
+              />
+            </div>
+            <div>
+              <label
+                for="stay-length"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Length of Stay:</label
+              >
+              <select
+                id="stay-length"
+                class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500"
+              >
+                <option value="1 day">1 Day</option>
+                <option value="2 days">2 Days</option>
+                <option value="3 days">3 Days</option>
+                <option value="4 days">4 Days</option>
+                <option value="5 days">5 Days</option>
+                <option value="more than 5 days">More than 5 Days</option>
+              </select>
+            </div>
+            <button
+              id="generate-itinerary-btn"
+              class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-md shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
+            >
+              Generate Itinerary ✨
+            </button>
+          </div>
+          <div
+            id="itinerary-output"
+            class="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 hidden"
+          >
+            <h3 class="text-xl font-semibold mb-4 text-gray-900 text-center">
+              Your Personalized Itinerary:
+            </h3>
+            <div
+              id="itinerary-content"
+              class="prose max-w-none text-gray-700 leading-relaxed"
+            ></div>
+            <div id="itinerary-loader" class="loader hidden"></div>
+            <p
+              id="itinerary-error"
+              class="text-red-500 text-center hidden mt-4"
+            >
+              Failed to generate itinerary. Please try again.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4 md:px-8">
+        <h2
+          class="text-4xl font-bold text-center mb-12 text-gray-900"
+          data-aos="fade-up"
+        >
+          Our Photo Gallery
+        </h2>
+        <div
+          class="slider-container"
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+        >
+          <div class="slider-images" id="gallery-slider">
+            <img
+              src="/assets/1.jpg"
+              alt="Scenic View"
+              class="w-full h-auto object-cover"
+            />
+            <img
+              src="/assets/ayodhya.webp"
+              alt="Forest View"
+              class="w-full h-auto object-cover"
+            />
+            <img
+              src="/assets/baranti.webp"
+              alt="Lake View"
+              class="w-full h-auto object-cover"
+            />
+            <img
+              src="/assets/palash.webp"
+              alt="Palash Trees"
+              class="w-full h-auto object-cover"
+            />
+            <img
+              src="/assets/service.jpg"
+              alt="Reception Area"
+              class="w-full h-auto object-cover"
+            />
+          </div>
+          <button class="slider-button prev" aria-label="Previous image">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+          </button>
+          <button class="slider-button next" aria-label="Next image">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </button>
+          <div class="slider-pagination" id="slider-pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="py-16 bg-white">
+      <div class="container mx-auto px-4 md:px-8">
+        <h2
+          class="text-4xl font-bold text-center mb-12 text-gray-900"
+          data-aos="fade-up"
+        >
+          What Our Guests Say
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div
+            class="bg-gray-50 p-8 rounded-xl shadow-md border-t-4 border-amber-500"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <p class="text-lg italic text-gray-700 mb-4">
+              "A truly wonderful stay! The staff were incredibly friendly and
+              the rooms were spotless. Highly recommend King Sukh Guest House
+              for anyone visiting."
+            </p>
+            <p class="font-semibold text-gray-800">- harshil chavda, India</p>
+          </div>
+          <div
+            class="bg-gray-50 p-8 rounded-xl shadow-md border-t-4 border-amber-500"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <p class="text-lg italic text-gray-700 mb-4">
+              "Excellent location and fantastic amenities. The complimentary
+              breakfast was a delightful start to each day. Will definitely be
+              back!"
+            </p>
+            <p class="font-semibold text-gray-800">- chauhan sudhir, India</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4 md:px-8">
+        <h2
+          class="text-4xl font-bold text-center mb-12 text-gray-900"
+          data-aos="fade-up"
+        >
+          Contact Us
+        </h2>
+        <div class="flex flex-col md:flex-row gap-12">
+          <div
+            class="md:w-1/2 bg-white p-8 rounded-xl shadow-lg"
+            data-aos="fade-right"
+          >
+            <h3 class="text-2xl font-semibold mb-6 text-gray-900">
+              Get in Touch
+            </h3>
+            <p class="mb-4 text-gray-700 flex items-center">
+              <svg
+                class="w-6 h-6 mr-3 text-amber-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0L6.343 16.657a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              Kingsukh Guest House, beside Barshal Water Tank, Manpur, Barhanti,
+              West Bengal 723156
+            </p>
+            <p class="mb-4 text-gray-700 flex items-center">
+              <svg
+                class="w-6 h-6 mr-3 text-amber-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                ></path>
+              </svg>
+              +91 9007062180
+            </p>
+            <p class="mb-4 text-gray-700 flex items-center">
+              <svg
+                class="w-6 h-6 mr-3 text-amber-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+              kkghosh0099@gmail.com
+            </p>
+            <div class="mt-8">
+              <h4 class="text-xl font-semibold mb-4 text-gray-900">
+                Find Us on Map
+              </h4>
+              <div class="bg-gray-200 rounded-lg h-64 overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.853921312384!2d86.85250491497914!3d23.47355198471131!2m3!1f0!2m3!1f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f6b1e3d0d0d0d1%3A0x7d7b7e7b7e7b7e7b!2sKingsukh%20Guest%20House!5e0!3m2!1sen!2sin!4v1678901234567!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  class="rounded-lg"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="md:w-1/2 bg-white p-8 rounded-xl shadow-lg"
+            data-aos="fade-left"
+          >
+            <h3 class="text-2xl font-semibold mb-6 text-gray-900">
+              Send Us a Message
+            </h3>
+            <form action="#" method="POST" class="space-y-4">
+              <div>
+                <label
+                  for="name"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Your Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Your Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="subject"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Subject</label
+                >
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500"
+                  placeholder="Regarding your stay..."
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="message"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Your Message</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500"
+                  placeholder="Type your message here..."
+                  required
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-md shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-10">
+      <div
+        class="container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8"
+      >
+        <div data-aos="fade-up">
+          <h3 class="text-xl font-bold mb-4">King Sukh Guest House</h3>
+          <p class="text-gray-400 text-sm">
+            Providing exceptional comfort and hospitality for a memorable stay.
+            Your home away from home.
+          </p>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="100">
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="#home"
+                class="text-gray-400 hover:text-amber-400 transition duration-300 text-sm"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="#rooms"
+                class="text-gray-400 hover:text-amber-400 transition duration-300 text-sm"
+                >Rooms</a
+              >
+            </li>
+            <li>
+              <a
+                href="#amenities"
+                class="text-gray-400 hover:text-amber-400 transition duration-300 text-sm"
+                >Amenities</a
+              >
+            </li>
+            <li>
+              <a
+                href="#itinerary-generator"
+                class="text-gray-400 hover:text-amber-400 transition duration-300 text-sm"
+                >Plan Your Trip</a
+              >
+            </li>
+            <li>
+              <a
+                href="#gallery"
+                class="text-gray-400 hover:text-amber-400 transition duration-300 text-sm"
+                >Gallery</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contact"
+                class="text-gray-400 hover:text-amber-400 transition duration-300 text-sm"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="200">
+          <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+          <p class="text-gray-400 text-sm mb-2">
+            Kingsukh Guest House, beside Barshal Water Tank, Manpur, Barhanti,
+            West Bengal 723156
+          </p>
+          <p class="text-gray-400 text-sm mb-2">Phone: +91 9007062180</p>
+          <p class="text-gray-400 text-sm mb-4">Email: kkghosh0099@gmail.com</p>
+          <div class="flex space-x-4">
+            <a
+              href="#home"
+              target="_blank"
+              aria-label="Twitter"
+              class="hover:opacity-75 transition duration-300 text-white text-2xl"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="#home"
+              target="_blank"
+              aria-label="YouTube"
+              class="hover:opacity-75 transition duration-300 text-white text-2xl"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/kingsukhguesthouse/"
+              target="_blank"
+              aria-label="Instagram"
+              class="hover:opacity-75 transition duration-300 text-white text-2xl"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a
+              href="#home"
+              target="_blank"
+              aria-label="Facebook"
+              class="hover:opacity-75 transition duration-300 text-white text-2xl"
+            >
+              <i class="fab fa-facebook"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="text-center text-gray-500 text-sm mt-8 pt-6 border-t border-gray-700"
+      >
+        © 2024 King Sukh Guest House. All rights reserved.
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize AOS
+        AOS.init({
+          duration: 1000, // values from 0 to 3000, with step 50ms
+          once: true, // whether animation should happen only once - while scrolling down
+        });
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        mobileMenuButton.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+          mobileMenuButton.classList.toggle("open");
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+            mobileMenuButton.classList.remove("open");
+          });
+        });
+
+        // AI Itinerary Generator Logic
+        const generateItineraryBtn = document.getElementById(
+          "generate-itinerary-btn"
+        );
+        const interestsInput = document.getElementById("interests");
+        const stayLengthSelect = document.getElementById("stay-length");
+        const itineraryOutput = document.getElementById("itinerary-output");
+        const itineraryContent = document.getElementById("itinerary-content");
+        const itineraryLoader = document.getElementById("itinerary-loader");
+        const itineraryError = document.getElementById("itinerary-error");
+
+        generateItineraryBtn.addEventListener("click", async () => {
+          const interests = interestsInput.value.trim();
+          const stayLength = stayLengthSelect.value;
+
+          if (!interests) {
+            itineraryError.textContent =
+              "Please enter your interests to generate an itinerary.";
+            itineraryError.classList.remove("hidden");
+            itineraryOutput.classList.remove("hidden");
+            itineraryContent.innerHTML = "";
+            return;
+          }
+
+          // Show loader and hide previous output/error
+          itineraryOutput.classList.remove("hidden");
+          itineraryContent.innerHTML = "";
+          itineraryLoader.classList.remove("hidden");
+          itineraryError.classList.add("hidden");
+          generateItineraryBtn.disabled = true; // Disable button during generation
+
+          try {
+            const prompt = `Generate a personalized travel itinerary for a guest staying at King Sukh Guest House, which is located in Barhanti, West Bengal, India. The guest is interested in "${interests}" and will be staying for "${stayLength}". Suggest specific activities, places to visit, and dining options relevant to these interests and the duration, considering the local attractions around Barhanti (e.g., Baranti Lake, Ayodhya Hills, Garh Panchkot). Provide the itinerary in a clear, day-by-day format, indicating morning, afternoon, and evening activities.`;
+
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+            const payload = { contents: chatHistory };
+            const apiKey = ""; // Canvas will automatically provide this in runtime
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            const result = await response.json();
+
+            if (
+              result.candidates &&
+              result.candidates.length > 0 &&
+              result.candidates[0].content &&
+              result.candidates[0].content.parts &&
+              result.candidates[0].content.parts.length > 0
+            ) {
+              const text = result.candidates[0].content.parts[0].text;
+              itineraryContent.innerHTML = formatTextAsHtml(text); // Format plain text for display
+            } else {
+              itineraryError.textContent =
+                "Could not generate itinerary. No valid response from AI.";
+              itineraryError.classList.remove("hidden");
+            }
+          } catch (error) {
+            console.error("Error generating itinerary:", error);
+            itineraryError.textContent =
+              "An error occurred while generating the itinerary. Please try again later.";
+            itineraryError.classList.remove("hidden");
+          } finally {
+            itineraryLoader.classList.add("hidden");
+            generateItineraryBtn.disabled = false; // Re-enable button
+          }
+        });
+
+        // Helper function to format plain text output from LLM into HTML (e.g., for newlines)
+        function formatTextAsHtml(text) {
+          // Replace newlines with <br> tags and ensure basic paragraph formatting
+          return text
+            .split("\n")
+            .map((line) => {
+              if (line.trim() === "") {
+                return ""; // Skip empty lines
+              }
+              // Basic markdown-like formatting for bolding (e.g., **Day 1**)
+              line = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+              // Add paragraph tags for blocks of text, or keep as is for lists/headers
+              return `<p>${line}</p>`;
+            })
+            .join("");
+        }
+
+        // Custom Image Slider Logic
+        const slider = document.getElementById("gallery-slider");
+        const images = slider.querySelectorAll("img");
+        const prevButton = document.querySelector(".slider-button.prev");
+        const nextButton = document.querySelector(".slider-button.next");
+        const paginationContainer =
+          document.getElementById("slider-pagination");
+        let currentIndex = 0;
+        let slideInterval;
+        const slideDuration = 3500; // 3.5 seconds
+
+        // Function to update slider display
+        function updateSlider() {
+          const offset = -currentIndex * 100;
+          slider.style.transform = `translateX(${offset}%)`;
+          updatePaginationDots();
+        }
+
+        // Function to go to next slide
+        function goToNextSlide() {
+          currentIndex = (currentIndex + 1) % images.length;
+          updateSlider();
+        }
+
+        // Function to go to previous slide
+        function goToPrevSlide() {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          updateSlider();
+        }
+
+        // Function to create and update pagination dots
+        function updatePaginationDots() {
+          paginationContainer.innerHTML = ""; // Clear existing dots
+          for (let i = 0; i < images.length; i++) {
+            const dot = document.createElement("span");
+            dot.classList.add("pagination-dot");
+            if (i === currentIndex) {
+              dot.classList.add("active");
+            }
+            dot.addEventListener("click", () => {
+              currentIndex = i;
+              updateSlider();
+              resetAutoSlide(); // Reset timer on manual navigation
+            });
+            paginationContainer.appendChild(dot);
+          }
+        }
+
+        // Function to start automatic sliding
+        function startAutoSlide() {
+          slideInterval = setInterval(goToNextSlide, slideDuration);
+        }
+
+        // Function to reset automatic sliding (clear and restart)
+        function resetAutoSlide() {
+          clearInterval(slideInterval);
+          startAutoSlide();
+        }
+
+        // Event Listeners for navigation buttons
+        prevButton.addEventListener("click", () => {
+          goToPrevSlide();
+          resetAutoSlide(); // Reset timer on manual navigation
+        });
+
+        nextButton.addEventListener("click", () => {
+          goToNextSlide();
+          resetAutoSlide(); // Reset timer on manual navigation
+        });
+
+        // Initialize slider on load
+        updateSlider();
+        startAutoSlide(); // Start automatic sliding
+      });
+    </script>
+  </body>
+</html>
