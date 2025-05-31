@@ -378,7 +378,7 @@
             data-aos-delay="100"
           >
             <img
-              src="./assets/large.jpg"
+              src="/assets/large.jpg"
               alt="Standard Room"
               class="w-full h-56 object-cover"
             />
@@ -409,7 +409,7 @@
             data-aos-delay="200"
           >
             <img
-              src="./assets/room1.jpg"
+              src="/assets/room1.jpg"
               alt="Deluxe Room"
               class="w-full h-56 object-cover"
             />
@@ -677,27 +677,27 @@
         >
           <div class="slider-images" id="gallery-slider">
             <img
-              src="./assets/1.jpg"
+              src="/assets/1.jpg"
               alt="Scenic View"
               class="w-full h-auto object-cover"
             />
             <img
-              src="./assets/ayodhya.webp"
+              src="/assets/ayodhya.webp"
               alt="Forest View"
               class="w-full h-auto object-cover"
             />
             <img
-              src="./assets/baranti.webp"
+              src="/assets/baranti.webp"
               alt="Lake View"
               class="w-full h-auto object-cover"
             />
             <img
-              src="./assets/palash.webp"
+              src="/assets/palash.webp"
               alt="Palash Trees"
               class="w-full h-auto object-cover"
             />
             <img
-              src="./assets/service.jpg"
+              src="/assets/service.jpg"
               alt="Reception Area"
               class="w-full h-auto object-cover"
             />
@@ -854,17 +854,16 @@
               <h4 class="text-xl font-semibold mb-4 text-gray-900">
                 Find Us on Map
               </h4>
-              <div class="bg-gray-200 rounded-lg h-64 overflow-hidden">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.853921312384!2d86.85250491497914!3d23.47355198471131!2m3!1f0!2m3!1f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f6b1e3d0d0d0d1%3A0x7d7b7e7b7e7b7e7b!2sKingsukh%20Guest%20House!5e0!3m2!1sen!2sin!4v1678901234567!5m2!1sen!2sin"
-                  width="100%"
-                  height="100%"
-                  style="border: 0"
-                  allowfullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  class="rounded-lg"
-                ></iframe>
+              <div class="bg-gray-200 rounded-lg h-64 overflow-hidden flex items-center justify-center">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Kingsukh+Guest+House,+beside+Barshal+Water+Tank,+Manpur,+Barhanti,+West+Bengal+723156"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-amber-700 hover:text-amber-900 font-bold text-center p-4 rounded-lg bg-white shadow-md transition duration-300 transform hover:scale-105"
+                >
+                  <i class="fas fa-map-marker-alt text-4xl mb-2"></i>
+                  <p>View on Google Maps</p>
+                </a>
               </div>
             </div>
           </div>
@@ -1019,7 +1018,7 @@
           <p class="text-gray-400 text-sm mb-4">Email: kkghosh0099@gmail.com</p>
           <div class="flex space-x-4">
             <a
-              href="#home"
+              href="https://twitter.com/kingsukh"
               target="_blank"
               aria-label="Twitter"
               class="hover:opacity-75 transition duration-300 text-white text-2xl"
@@ -1027,7 +1026,7 @@
               <i class="fab fa-twitter"></i>
             </a>
             <a
-              href="#home"
+              href="https://www.youtube.com/channel/YOUR_YOUTUBE_CHANNEL_ID"
               target="_blank"
               aria-label="YouTube"
               class="hover:opacity-75 transition duration-300 text-white text-2xl"
@@ -1035,7 +1034,7 @@
               <i class="fab fa-youtube"></i>
             </a>
             <a
-              href="https://www.instagram.com/kingsukhguesthouse/"
+              href="https://www.instagram.com/kingsukh_guesthouse/"
               target="_blank"
               aria-label="Instagram"
               class="hover:opacity-75 transition duration-300 text-white text-2xl"
@@ -1043,7 +1042,7 @@
               <i class="fab fa-instagram"></i>
             </a>
             <a
-              href="#home"
+              href="https://www.facebook.com/KingsukhGuestHouse"
               target="_blank"
               aria-label="Facebook"
               class="hover:opacity-75 transition duration-300 text-white text-2xl"
@@ -1119,7 +1118,7 @@
           generateItineraryBtn.disabled = true; // Disable button during generation
 
           try {
-            const prompt = `Generate a personalized travel itinerary for a guest staying at King Sukh Guest House, which is located in Barhanti, West Bengal, India. The guest is interested in "${interests}" and will be staying for "${stayLength}". Suggest specific activities, places to visit, and dining options relevant to these interests and the duration, considering the local attractions around Barhanti (e.g., Baranti Lake, Ayodhya Hills, Garh Panchkot). Provide the itinerary in a clear, day-by-day format, indicating morning, afternoon, and evening activities.`;
+            const prompt = `Generate a personalized travel itinerary for a guest staying at King Sukh Guest House, which is located in Barhanti, West Bengal, India. The guest is interested in "${interests}" and will be staying for "${stayLength}". Suggest specific activities, places to visit, and dining options relevant to these interests and the duration, considering the local attractions around Baranti (e.g., Baranti Lake, Ayodhya Hills, Garh Panchkot). Provide the itinerary in a clear, day-by-day format, indicating morning, afternoon, and evening activities.`;
 
             let chatHistory = [];
             chatHistory.push({ role: "user", parts: [{ text: prompt }] });
